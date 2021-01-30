@@ -69,6 +69,7 @@ $chatter_zone_width: 35%;
         .o_menu_sections.show {
             @include full-screen-dropdown();
             background-color: $dropdown-bg;
+            overflow: auto;
 
             .show {
                 display: flex;
@@ -743,6 +744,30 @@ html .o_web_client .o_action_manager .o_action {
                 right: unset;
                 font-size: unset;
                 font-weight: unset;
+            }
+        }
+    }
+}
+
+// Search Panel
+@include media-breakpoint-down(sm) {
+    // Hide search panel
+    .o_controller_with_searchpanel {
+        .o_search_panel {
+            display: none;
+        }
+    }
+}
+
+// Filter Menu
+.o_control_panel {
+    .o_filters_menu {
+        .o_menu_item {
+            @include o-search-options-dropdown-custom-item;
+
+            a {
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
         }
     }
