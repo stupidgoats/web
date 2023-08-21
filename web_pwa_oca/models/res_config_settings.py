@@ -4,10 +4,10 @@ import base64
 import io
 import sys
 
+from PIL import Image
+
 from odoo import _, api, exceptions, fields, models
 from odoo.tools.mimetypes import guess_mimetype
-
-from PIL import Image
 
 
 class ResConfigSettings(models.TransientModel):
@@ -128,7 +128,10 @@ class ResConfigSettings(models.TransientModel):
         if not pwa_icon_mimetype.startswith(
             "image/svg"
         ) and not pwa_icon_mimetype.startswith("image/png"):
-            raise exceptions.UserError(_("You can only upload SVG or PNG files"))
+            raise exceptions.UserError(
+                _("You can only upload SVG or PNG files. Found: %s.")
+                % pwa_icon_mimetype
+            )
         # Delete all previous records if we are writting new ones
         if pwa_icon_ir_attachments:
             pwa_icon_ir_attachments.unlink()
